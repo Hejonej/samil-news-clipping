@@ -11,7 +11,7 @@ import urllib.parse
 # 페이지 설정
 st.set_page_config(
     page_title="뉴스 클리핑 시스템",
-    page_icon="��",
+    page_icon="📰",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -88,14 +88,14 @@ def setup_sidebar():
     st.sidebar.title("⚙️ 설정")
     
     # RSS URL 설정
-    st.sidebar.subheader("�� RSS URL 설정")
+    st.sidebar.subheader("🔗 RSS URL 설정")
     
     # URL 편집 모드
     edit_urls = st.sidebar.checkbox("URL 직접 편집", value=False, help="RSS URL을 직접 수정할 수 있습니다")
     
     if edit_urls:
         st.sidebar.markdown("### 📝 RSS URL 편집")
-        st.sidebar.info("�� {query} 부분은 검색어로 자동 치환됩니다")
+        st.sidebar.info("💡 {query} 부분은 검색어로 자동 치환됩니다")
         
         for source, url in st.session_state.rss_urls.items():
             new_url = st.sidebar.text_input(
@@ -115,7 +115,7 @@ def setup_sidebar():
             st.rerun()
     
     # 날짜 범위 설정
-    st.sidebar.subheader("�� 분석 기간")
+    st.sidebar.subheader("📅 분석 기간")
     
     # 기본 날짜 범위 (최근 7일)
     end_date = datetime.now().date()
@@ -195,7 +195,7 @@ def display_companies():
             with col1:
                 st.write(f"🏢 {company}")
             with col2:
-                if st.button("��️ 삭제", key=f"delete_{i}"):
+                if st.button("🗑️ 삭제", key=f"delete_{i}"):
                     st.session_state.companies.pop(i)
                     st.success(f"✅ {company}이(가) 삭제되었습니다!")
                     st.rerun()
@@ -208,7 +208,7 @@ def display_companies():
         
         return True
     else:
-        st.info("�� 분석할 기업을 추가해주세요.")
+        st.info("📝 분석할 기업을 추가해주세요.")
         return False
 
 def fetch_rss_news(company: str, source: str, url_template: str, max_articles: int):
@@ -380,8 +380,8 @@ def display_analysis_results(results: Dict[str, Any]):
                             </div>
                             <div class="news-summary">{news['summary']}</div>
                             <div class="news-meta">
-                                📅 {news['date']} | �� {news['source']} | 
-                                {'��' if news.get('sentiment') == '긍정' else '��' if news.get('sentiment') == '중립' else '😞'} {news.get('sentiment', 'N/A')}
+                                📅 {news['date']} | 📰 {news['source']} | 
+                                {'😊' if news.get('sentiment') == '긍정' else '😐' if news.get('sentiment') == '중립' else '😞'} {news.get('sentiment', 'N/A')}
                             </div>
                         </div>
                         """, unsafe_allow_html=True)
